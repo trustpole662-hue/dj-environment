@@ -1,0 +1,20 @@
+{
+  "name": "dj-toolais-dj-environment",
+  "productName": "DJ TooLai's DJ Environment",
+  "version": "1.0.0",
+  "description": "A lightweight DJ app for the Numark DJ2GO2 Touch",
+  "author": "DJ TooLai",
+  "license": "MIT",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "node scripts/build-mac.js",
+    "dist:intel": "node scripts/build-mac.js intel",
+    "dist:arm": "node scripts/build-mac.js arm",
+    "cask": "node scripts/make-cask.js"
+  },
+  "devDependencies": {
+    "electron": "^44.4.3",
+    "electron-builder": "^26.15.3"
+  }
+}
