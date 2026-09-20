@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' blob:; script-src 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DJ TooLai's DJ Environment</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1><span class="logo">TL</span> DJ TooLai's DJ Environment</h1>
+  <div class="head-right">
+    <span id="midi-pill" class="pill none"><i></i><b id="midi-text">Starting MIDI…</b></span>
+    <button id="btn-video" class="ghost" title="Show or hide the video overlay (V)">Video</button>
+    <button id="btn-map" class="ghost" title="Map your controller step by step">Map controller</button>
+    <button id="btn-learn" class="ghost" title="Click any on-screen control, then move a control on your hardware">MIDI Learn</button>
+    <button id="btn-settings" class="ghost">Settings</button>
+  </div>
+</header>
+
+<main>
+  <section class="deck" id="deck-a" data-deck="0"></section>
+
+  <section class="mixer">
+    <div class="knob-row" id="mix-knobs"></div>
+    <div class="vu" id="master-vu"><i></i></div>
+    <div class="xfade">
+      <input type="range" id="xfader" data-ctl="xfader" min="-1" max="1" step="0.01" value="0" aria-label="Crossfader">
+      <div class="xf-labels"><span class="a">A</span><span>CROSSFADER</span><span class="b">B</span></div>
+    </div>
+  </section>
+
+  <section class="deck" id="deck-b" data-deck="1"></section>
+</main>
+
+<section class="library">
+  <div class="lib-head">
+    <b>Library</b>
+    <span id="lib-count">0 tracks</span>
+    <span class="grow"></span>
+    <button id="lib-add" class="ghost">Add tracks…</button>
+    <button id="lib-folder" class="ghost">Add folder…</button>
+  </div>
+  <ul id="lib-list" tabindex="0"></ul>
+  <div class="empty" id="lib-empty">Drop audio files here, or use “Add tracks”. Load with each deck’s LOAD button (or your controller’s).</div>
+</section>
+
+<footer>
+  <span id="msg-monitor">MIDI: —</span>
+  <span id="status-msg"></span>
+  <span class="grow"></span>
+  <span id="out-info"></span>
+</footer>
+
+<div id="vstage" class="vstage" hidden>
+  <div class="v-bar"><span>VIDEO</span><span class="grow"></span>
+    <button id="v-full" class="ghost" title="Fullscreen (or double-click the picture)" aria-label="Fullscreen">⛶</button>
+    <button id="v-close" class="ghost" title="Hide (V)" aria-label="Hide video">✕</button></div>
+  <div class="v-screen">
+    <video id="vid-a" muted playsinline></video><video id="vid-b" muted playsinline></video>
+    <div class="v-empty">Load an .mp4 onto a deck</div>
+  </div>
+</div>
+
+<div id="wizard" class="wizard" hidden>
+  <div class="w-step" id="w-step"></div>
+  <div class="w-title" id="w-title"></div>
+  <div class="w-hint" id="w-hint"></div>
+  <div class="w-actions"><button id="w-skip" class="ghost">Skip</button><button id="w-stop" class="ghost">Stop</button></div>
+</div>
+
+<dialog id="dlg-settings">
+  <form method="dialog">
+    <h2>Settings</h2>
+    <label class="row"><span>Level knobs control</span>
+      <select id="set-level"><option value="volume">Channel volume</option><option value="filter">Filter</option></select></label>
+    <label class="row"><span>Headphone cue split (outputs 3-4)</span>
+      <select id="set-split"><option value="auto">Auto</option><option value="on">On</option><option value="off">Off</option></select></label>
+    <label class="row"><span>Scratch sensitivity</span>
+      <input type="range" id="set-jog" min="1" max="12" step="0.5" value="4"></label>
+    <label class="row"><span>Invert hardware tempo sliders</span>
+      <input type="checkbox" id="set-tempo-inv"></label>
+    <div class="row"><span>Controller mapping</span><button type="button" id="set-reset" class="ghost">Reset mapping</button></div>
+    <p class="note">For DJ2GO2 Touch headphone cueing, choose it as the output in macOS <em>System Settings → Sound</em>, then quit and reopen this app.
+      Keys: <kbd>Q</kbd>/<kbd>P</kbd> play A/B · <kbd>A</kbd>/<kbd>L</kbd> cue · <kbd>Z</kbd>/<kbd>M</kbd> sync · <kbd>,</kbd>/<kbd>.</kbd> crossfader · <kbd>V</kbd> video.</p>
+    <menu><button value="ok">Done</button></menu>
+  </form>
+</dialog>
+
+<dialog id="dlg-first">
+  <form method="dialog">
+    <h2>DJ2GO2 Touch found</h2>
+    <p>Map your controller once (about a minute) so every knob, pad and wheel works. You can skip anything it doesn’t have.</p>
+    <menu><button value="later" class="ghost">Later</button><button value="map" id="first-map">Map controller</button></menu>
+  </form>
+</dialog>
+
+<input type="file" id="file-input" accept="audio/*,video/*,.mp3,.wav,.m4a,.aac,.flac,.ogg,.mp4,.m4v,.mov,.webm" multiple hidden>
+<input type="file" id="folder-input" webkitdirectory hidden>
+
+<script src="engine.js"></script>
+<script src="midi.js"></script>
+<script src="video.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
