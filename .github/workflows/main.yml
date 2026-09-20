@@ -1,0 +1,5 @@
+- name: create macOS dmg
+  uses: L-Super/create-dmg-actions@v1.1.0
+  with:
+    src_dir: dj-environment/src
+    dmg_name: DJ-TooLais-DJ-Environment-1.0.0-Intel.dmg
